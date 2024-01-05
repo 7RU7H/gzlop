@@ -30,7 +30,7 @@ func checkError(err error) {
 }
 
 // With a little help from Phind
-func gzepFileExclude(file string, patterns []byte) (int, error) {
+func gzlopFileExclude(file string, patterns []byte) (int, error) {
 	patCount := int(0)
 	f, err := os.Open(file)
 	checkError(err)
@@ -57,7 +57,7 @@ func gzepFileExclude(file string, patterns []byte) (int, error) {
 }
 
 // peter's grep modified from https://stackoverflow.com/questions/26709971/could-this-be-more-efficient-in-go
-func gzepFile(file string, patterns []byte) (map[int]string, error) {
+func gzlopFile(file string, patterns []byte) (map[int]string, error) {
 	patCount := int(0)
 	artifacts := make(map[int]string)
 	builder := strings.Builder{}
@@ -129,9 +129,9 @@ func main() {
 	convArgStr := strings.Join(arg, "")
 	convArgBytes := []byte(convArgStr)
 	if excludeFlag != "" {
-		resultCount, _ = gzepFileExclude(fileFlag, convArgBytes)
+		resultCount, _ = gzlopFileExclude(fileFlag, convArgBytes)
 	} else {
-		resultMap, _ = gzepFile(fileFlag, convArgBytes)
+		resultMap, _ = gzlopFile(fileFlag, convArgBytes)
 		resultCount = len(resultMap)
 	}
 
